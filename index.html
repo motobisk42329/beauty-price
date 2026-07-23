@@ -45,7 +45,7 @@
     }
 
     .hero {
-      padding: 56px 0 48px;
+      padding: 56px 0 32px;
       text-align: center;
       animation: fadeIn 0.8s ease-out both;
     }
@@ -101,9 +101,8 @@
       animation: fadeIn 0.7s ease-out both;
     }
 
-    section:nth-of-type(1) { animation-delay: 0.1s; }
-    section:nth-of-type(2) { animation-delay: 0.2s; }
-    section:nth-of-type(3) { animation-delay: 0.3s; }
+    section:nth-of-type(1) { animation-delay: 0.08s; }
+    section:nth-of-type(2) { animation-delay: 0.16s; }
 
     .section-title {
       font-family: Georgia, "Times New Roman", serif;
@@ -201,25 +200,48 @@
     }
 
     .booking {
-      padding: 32px 0 24px;
-      animation: fadeIn 0.7s ease-out 0.35s both;
+      margin-bottom: 40px;
+      animation: fadeIn 0.7s ease-out 0.12s both;
+    }
+
+    .booking__card {
+      padding: 22px 20px 20px;
+      border: 1px solid #EAE3D9;
+      border-radius: 2px;
+      background: rgba(253, 251, 247, 0.85);
     }
 
     .booking__title {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 400;
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       letter-spacing: 0.04em;
     }
 
+    .booking__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 520px) {
+      .booking__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .booking__grid .field--full {
+        grid-column: 1 / -1;
+      }
+    }
+
     .field {
-      margin-bottom: 16px;
+      margin: 0;
     }
 
     .field label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       opacity: 0.55;
@@ -228,6 +250,7 @@
 
     .field input {
       width: 100%;
+      min-height: 48px;
       padding: 14px 16px;
       border: 1px solid #EAE3D9;
       border-radius: 2px;
@@ -235,17 +258,31 @@
       color: #1A1A1A;
       font-family: inherit;
       font-size: 1rem;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .field input:focus {
       outline: none;
       border-color: #E2D2C3;
+      box-shadow: 0 0 0 3px rgba(226, 210, 195, 0.35);
+    }
+
+    .field input.is-invalid {
+      border-color: rgba(196, 92, 92, 0.65);
+      box-shadow: 0 0 0 3px rgba(196, 92, 92, 0.12);
     }
 
     .field input::placeholder {
       color: #1A1A1A;
       opacity: 0.35;
+    }
+
+    .field input[type="date"],
+    .field input[type="time"] {
+      appearance: none;
+      -webkit-appearance: none;
+      min-height: 52px;
     }
 
     .sticky-bar {
@@ -543,6 +580,26 @@
     </header>
 
     <main>
+      <section class="booking" aria-labelledby="booking-heading">
+        <div class="booking__card">
+          <h2 id="booking-heading" class="booking__title">Данные для записи</h2>
+          <div class="booking__grid">
+            <div class="field field--full">
+              <label for="client-name">Ваше имя</label>
+              <input type="text" id="client-name" name="name" placeholder="Например, Анна" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="client-date">Дата записи</label>
+              <input type="date" id="client-date" name="date">
+            </div>
+            <div class="field">
+              <label for="client-time">Желаемое время</label>
+              <input type="time" id="client-time" name="time">
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="services-heading">
         <h2 id="services-heading" class="section-title">Услуги</h2>
 
@@ -652,18 +709,6 @@
           </ul>
         </div>
       </section>
-
-      <section class="booking" aria-labelledby="booking-heading">
-        <h2 id="booking-heading" class="booking__title">Данные для записи</h2>
-        <div class="field">
-          <label for="client-name">Ваше имя</label>
-          <input type="text" id="client-name" name="name" placeholder="Как к вам обращаться" autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="client-datetime">Желаемая дата и время</label>
-          <input type="text" id="client-datetime" name="datetime" placeholder="Например: 25 июля, 14:00">
-        </div>
-      </section>
     </main>
 
     <footer class="footer">
@@ -726,6 +771,20 @@
     const formatPrice = (value) =>
       new Intl.NumberFormat("ru-RU").format(value) + " ₽";
 
+    const formatPriceRub = (value) =>
+      new Intl.NumberFormat("ru-RU").format(value) + " руб.";
+
+    const formatDateDisplay = (isoDate) => {
+      const [year, month, day] = isoDate.split("-");
+      return `${day}.${month}.${year}`;
+    };
+
+    const bookingFields = [
+      { el: () => clientName, isEmpty: () => !clientName.value.trim() },
+      { el: () => clientDate, isEmpty: () => !clientDate.value },
+      { el: () => clientTime, isEmpty: () => !clientTime.value },
+    ];
+
     const inputs = document.querySelectorAll(".service__input");
     const cards = document.querySelectorAll("[data-service]");
     const selectedList = document.getElementById("selected-list");
@@ -737,7 +796,8 @@
     const messengerTrack = document.getElementById("messenger-track");
     const messengerInputs = document.querySelectorAll('input[name="messenger"]');
     const clientName = document.getElementById("client-name");
-    const clientDatetime = document.getElementById("client-datetime");
+    const clientDate = document.getElementById("client-date");
+    const clientTime = document.getElementById("client-time");
 
     const getSelected = () =>
       [...inputs]
@@ -816,23 +876,57 @@
       input.addEventListener("change", updateMessengerUI);
     });
 
+    const clearFieldErrors = () => {
+      bookingFields.forEach(({ el }) => {
+        el().classList.remove("is-invalid");
+      });
+    };
+
+    const validateBookingFields = () => {
+      clearFieldErrors();
+      const invalid = bookingFields.filter(({ isEmpty }) => isEmpty());
+
+      invalid.forEach(({ el }) => {
+        el().classList.add("is-invalid");
+      });
+
+      if (invalid.length > 0) {
+        invalid[0].el().scrollIntoView({ behavior: "smooth", block: "center" });
+        invalid[0].el().focus({ preventScroll: true });
+        return false;
+      }
+
+      return true;
+    };
+
+    bookingFields.forEach(({ el }) => {
+      el().addEventListener("input", () => {
+        el().classList.remove("is-invalid");
+      });
+      el().addEventListener("change", () => {
+        el().classList.remove("is-invalid");
+      });
+    });
+
     const buildBookingMessage = () => {
       const selected = getSelected();
       const total = selected.reduce((sum, item) => sum + item.price, 0);
-      const name = clientName.value.trim() || "не указано";
-      const datetime = clientDatetime.value.trim() || "не указано";
+      const name = clientName.value.trim();
+      const dateStr = formatDateDisplay(clientDate.value);
+      const timeStr = clientTime.value;
 
       const lines = [
-        "Здравствуйте!",
-        "Хочу записаться в STUDIO NOIR.",
+        "Здравствуйте! Хочу записаться:",
+        "👤 Имя: " + name,
+        "📅 Дата: " + dateStr,
+        "⏰ Время: " + timeStr,
         "",
-        "Имя: " + name,
-        "Дата и время: " + datetime,
+        "✂️ Выбранные услуги:",
+        ...selected.map(
+          (item) => "— " + item.name + " (" + formatPriceRub(item.price) + ")"
+        ),
         "",
-        "Выбранные услуги:",
-        ...selected.map((item) => "• " + item.name + " — " + formatPrice(item.price)),
-        "",
-        "Итого: " + formatPrice(total),
+        "💰 Итого: " + formatPriceRub(total),
       ];
 
       return lines.join("\n");
@@ -841,6 +935,8 @@
     const openBookingLink = () => {
       const selected = getSelected();
       if (selected.length === 0) return;
+
+      if (!validateBookingFields()) return;
 
       const text = encodeURIComponent(buildBookingMessage());
       const messenger = getMessenger();
