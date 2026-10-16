@@ -3,1037 +3,893 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STUDIO NOIR — Прайс и запись</title>
+  <meta name="description" content="VETA TATTOO — изящные татуировки в Москве и Орске. Елизавета @vetatattooo">
+  <title>VETA TATTOO | Елизавета — Москва • Орск</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    :root {
+      --bg: #FDFBF7;
+      --text: #242424;
+      --accent: #8B1E22;
+      --accent-hover: #6f181b;
+      --muted: #5c5c5c;
+      --border: rgba(36, 36, 36, 0.08);
+      --card-bg: #fff;
+      --radius-2xl: 1rem;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --header-h: 4.25rem;
     }
 
-    @keyframes checkDotIn {
-      from {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-      }
-      to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes btnPress {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.97); }
-      100% { transform: scale(1); }
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
       margin: 0;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      position: relative;
       min-height: 100vh;
-      background-color: #FDFBF7;
-      color: #121212;
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      letter-spacing: -0.01em;
-      -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 0 20px calc(220px + env(safe-area-inset-bottom, 0px));
-    }
-
-    .hero {
-      padding: 48px 0 28px;
-      text-align: center;
-      animation: fadeIn 0.85s ease-out both;
-    }
-
-    .hero__logo {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2rem, 6vw, 2.65rem);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin: 0 0 12px;
-      color: #121212;
-    }
-
-    .hero__tagline {
-      font-size: 0.9375rem;
-      font-weight: 400;
-      color: #121212;
-      opacity: 0.62;
-      margin: 0 0 24px;
-      letter-spacing: 0.02em;
-    }
-
-    .hero__meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px 20px;
-      font-size: 0.8125rem;
-      color: #121212;
-      opacity: 0.5;
-    }
-
-    .hero__meta span {
-      padding: 6px 14px;
-      background: #EFECE6;
-      border-radius: 100px;
-    }
-
-    section {
-      margin-bottom: 36px;
-      animation: fadeIn 0.75s ease-out both;
-    }
-
-    section:nth-of-type(1) { animation-delay: 0.06s; }
-    section:nth-of-type(2) { animation-delay: 0.14s; }
-
-    .section-title {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      margin: 0 0 20px;
-      color: #121212;
-    }
-
-    .booking__card {
-      padding: 28px 24px 32px;
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    }
-
-    .booking__title {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.35rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      margin: 0 0 24px;
-      color: #121212;
-    }
-
-    .booking__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
-    }
-
-    @media (min-width: 520px) {
-      .booking__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 24px 20px;
-      }
-
-      .field--full {
-        grid-column: 1 / -1;
-      }
-    }
-
-    .field label {
-      display: block;
-      font-size: 0.6875rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #121212;
-      opacity: 0.45;
-      margin-bottom: 10px;
-    }
-
-    .field input {
-      width: 100%;
-      min-height: 48px;
-      padding: 10px 0 12px;
-      border: none;
-      border-bottom: 1.5px solid #D1CDC7;
-      border-radius: 0;
-      background: transparent;
-      color: #121212;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 400;
-      transition: border-color 0.35s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .field input:focus {
-      outline: none;
-      border-bottom-color: #121212;
-    }
-
-    .field input.is-invalid {
-      border-bottom-color: #c45c5c;
-    }
-
-    .field input::placeholder {
-      color: #121212;
-      opacity: 0.28;
-    }
-
-    .field input[type="date"],
-    .field input[type="time"] {
-      min-height: 52px;
-    }
-
-    .categories {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .category-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-      overflow: hidden;
-    }
-
-    .category-card.is-highlight {
-      box-shadow: 0 0 0 2px rgba(196, 92, 92, 0.35), 0 10px 30px rgba(0, 0, 0, 0.03);
-    }
-
-    .accordion__trigger {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      width: 100%;
-      padding: 20px 22px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      text-align: left;
-      font-family: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .accordion__title {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.125rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      margin: 0;
-      color: #121212;
-    }
-
-    .accordion__chevron {
-      flex-shrink: 0;
-      width: 10px;
-      height: 10px;
-      border-right: 1.5px solid #121212;
-      border-bottom: 1.5px solid #121212;
-      transform: rotate(45deg);
-      opacity: 0.45;
-      transition: transform 0.4s ease, opacity 0.3s ease;
-      margin-top: -4px;
-    }
-
-    .category-card.is-open .accordion__chevron {
-      transform: rotate(-135deg);
-      margin-top: 4px;
-      opacity: 0.7;
-    }
-
-    .accordion__panel {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
-    }
-
-    .category-card.is-open .accordion__panel {
-      opacity: 1;
-    }
-
-    .accordion__panel-inner {
-      padding: 0 12px 12px;
-    }
-
-    .service-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .service {
-      border-radius: 12px;
-      transition: background-color 0.35s ease;
-    }
-
-    .service.is-selected {
-      background: #F7F5F0;
-    }
-
-    .service__input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
+    .paper-noise {
       pointer-events: none;
-    }
-
-    .service__label {
-      display: grid;
-      grid-template-columns: 20px 1fr auto;
-      align-items: start;
-      gap: 14px 16px;
-      padding: 16px 12px;
-      cursor: pointer;
-      border-radius: 12px;
-    }
-
-    .service__check {
-      position: relative;
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      border: 1.5px solid #121212;
-      border-radius: 50%;
-      flex-shrink: 0;
-      transition: border-color 0.3s ease, background-color 0.3s ease;
-    }
-
-    .service__check::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #121212;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    }
-
-    .service__input:checked + .service__label .service__check::after {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-      animation: checkDotIn 0.35s ease-out;
-    }
-
-    .service__body {
-      min-width: 0;
-    }
-
-    .service__title {
-      display: block;
-      font-weight: 500;
-      font-size: 0.9375rem;
-      letter-spacing: -0.01em;
-      color: #121212;
-      margin-bottom: 4px;
-    }
-
-    .service__desc {
-      font-size: 0.8125rem;
-      color: #121212;
-      opacity: 0.5;
-      margin: 0;
-      line-height: 1.45;
-    }
-
-    .service__price {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1rem;
-      font-weight: 500;
-      white-space: nowrap;
-      color: #121212;
-      align-self: center;
-    }
-
-    .sticky-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
+      inset: 0;
+      z-index: 9999;
+      opacity: 0.035;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container {
       width: 100%;
-      z-index: 1000;
-      background: rgba(253, 251, 247, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-      padding: 14px 20px calc(16px + env(safe-area-inset-bottom, 0px));
-    }
-
-    .sticky-bar__inner {
-      max-width: 640px;
+      max-width: 72rem;
       margin: 0 auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
     }
 
-    .sticky-bar__row {
+    @media (min-width: 768px) {
+      .container { padding-left: 2rem; padding-right: 2rem; }
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+      margin: 0 0 1rem;
+    }
+
+    h1 { font-size: clamp(2.25rem, 6vw, 3.75rem); }
+    h2 { font-size: clamp(1.875rem, 4.5vw, 2.75rem); }
+    h3 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
+
+    p { margin: 0 0 1rem; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253, 251, 247, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 12px;
+      gap: 1rem;
+      min-height: var(--header-h);
     }
 
-    .sticky-bar__hint {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #121212;
-      opacity: 0.4;
-    }
-
-    .sticky-bar__total {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.375rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-      color: #121212;
-    }
-
-    .sticky-bar__total.is-empty {
-      font-family: "Inter", sans-serif;
-      font-size: 0.875rem;
-      font-weight: 400;
-      opacity: 0.45;
-    }
-
-    .messenger-switch {
-      margin: 0 0 12px;
-      border: none;
-      padding: 0;
-    }
-
-    .messenger-switch__legend {
-      font-size: 0.625rem;
-      text-transform: uppercase;
+    .logo {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      font-weight: 600;
       letter-spacing: 0.12em;
-      opacity: 0.4;
-      margin: 0 0 8px;
-      padding: 0;
-    }
-
-    .messenger-switch__track {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 3px;
-      background: #EFECE6;
-      border-radius: 100px;
-      position: relative;
-    }
-
-    .messenger-switch__input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .messenger-switch__option {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 8px;
-      font-size: 0.625rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
       text-transform: uppercase;
-      cursor: pointer;
-      color: #121212;
-      opacity: 0.45;
-      transition: opacity 0.3s ease;
-      border-radius: 100px;
+      line-height: 1.3;
     }
 
-    .messenger-switch__input:checked + .messenger-switch__option {
-      opacity: 1;
+    .logo span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-top: 0.15rem;
     }
 
-    .messenger-switch__thumb {
-      position: absolute;
-      top: 3px;
-      bottom: 3px;
-      left: 3px;
-      width: calc(50% - 3px);
-      background: #FFFFFF;
-      border-radius: 100px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none;
-    }
-
-    .messenger-switch__track.is-telegram .messenger-switch__thumb {
-      transform: translateX(100%);
-    }
-
-    .messenger-switch__icon {
-      width: 14px;
-      height: 14px;
-    }
-
-    .btn-send {
-      display: flex;
+    .btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 16px 28px;
-      border: none;
-      border-radius: 30px;
-      background: #121212;
-      color: #FFFFFF;
-      font-family: inherit;
+      gap: 0.5rem;
+      font-family: var(--font-body);
       font-size: 0.875rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-2xl);
       cursor: pointer;
-      transition: background-color 0.35s ease, transform 0.2s ease, opacity 0.3s ease;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      white-space: nowrap;
     }
 
-    .btn-send:hover {
-      background: #2a2a2a;
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(139, 30, 34, 0.22);
     }
 
-    .btn-send:active {
-      animation: btnPress 0.25s ease;
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
     }
 
-    .btn-send__icon {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
+    .btn-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
     }
 
-    .footer {
-      padding: 40px 0 24px;
-      text-align: center;
-      font-size: 0.8125rem;
-      color: #121212;
-      opacity: 0.45;
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .footer__links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 20px;
-      margin-bottom: 12px;
+    .btn-ghost:hover {
+      border-color: rgba(36, 36, 36, 0.2);
+      background: rgba(255, 255, 255, 0.6);
     }
 
-    .footer a {
-      color: #121212;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s ease;
-    }
-
-    .footer a:hover {
-      border-bottom-color: #D1CDC7;
-    }
-
-    .footer__address {
-      margin: 0;
+    .header .btn-primary {
+      padding: 0.65rem 1rem;
+      font-size: 0.75rem;
     }
 
     @media (max-width: 480px) {
-      .wrap {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
+      .header .btn-primary { font-size: 0.7rem; padding: 0.6rem 0.85rem; }
+    }
 
-      .hero__logo {
-        letter-spacing: 0.08em;
-      }
+    section {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
 
-      .service__label {
-        grid-template-columns: 20px 1fr;
-        grid-template-rows: auto auto;
-      }
-
-      .service__price {
-        grid-column: 2;
-        grid-row: 2;
-        justify-self: start;
-        margin-top: 4px;
+    @media (min-width: 768px) {
+      section {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
       }
     }
+
+    .section-narrow {
+      max-width: 40rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: 1.75rem;
+      box-shadow: 0 8px 40px rgba(36, 36, 36, 0.04);
+    }
+
+    @media (min-width: 768px) {
+      .card { padding: 2.25rem; }
+    }
+
+    .hero {
+      padding-top: 3rem;
+      padding-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+      }
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 2.2vw, 1.125rem);
+      max-width: 32rem;
+    }
+
+    .hero-actions { margin-top: 2rem; }
+
+    .hero-image-wrap {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(36, 36, 36, 0.08);
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(145deg, #f5f0ea, #ebe4dc);
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .ig-link:hover { text-decoration: underline; }
+
+    .mini-block {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .mini-block {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .mini-photo-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .mini-photo-frame {
+      border-radius: calc(var(--radius-2xl) - 2px);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: #f0ebe4;
+    }
+
+    .mini-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .card-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba(139, 30, 34, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .split {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .split { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+
+    .split-image {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 3 / 4;
+      background: #f0ebe4;
+    }
+
+    .split-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #quiz {
+      scroll-margin-top: calc(var(--header-h) + 1rem);
+    }
+
+    .quiz-wrap {
+      max-width: 36rem;
+      margin: 2rem auto 0;
+    }
+
+    .quiz-progress {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .quiz-progress-dot {
+      flex: 1;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+
+    .quiz-progress-dot.is-active,
+    .quiz-progress-dot.is-done {
+      background: var(--accent);
+    }
+
+    .quiz-step {
+      display: none;
+      animation: stepIn 0.4s ease;
+    }
+
+    .quiz-step.is-visible { display: block; }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quiz-step-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .option-grid {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      color: var(--text);
+    }
+
+    .option-btn:hover {
+      border-color: rgba(139, 30, 34, 0.25);
+    }
+
+    .option-btn.is-selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+      background: rgba(139, 30, 34, 0.04);
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      background: var(--card-bg);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-textarea {
+      min-height: 8rem;
+      resize: vertical;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: rgba(139, 30, 34, 0.4);
+      box-shadow: 0 0 0 3px rgba(139, 30, 34, 0.08);
+    }
+
+    .field-error {
+      font-size: 0.8125rem;
+      color: var(--accent);
+      margin-top: 0.5rem;
+      min-height: 1.25rem;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .quiz-nav .btn { flex: 1; min-width: 8rem; }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(36, 36, 36, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--bg);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      max-width: 22rem;
+      width: 100%;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.15);
+      transform: scale(0.96);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: scale(1);
+    }
+
+    .modal h3 { margin-bottom: 0.75rem; }
+
+    .modal p { font-size: 0.9375rem; }
+
+    .footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    .footer a { color: var(--accent); font-weight: 500; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1 class="hero__logo">Studio Noir</h1>
-      <p class="hero__tagline">Эстетика вашего образа • Закрытый приём</p>
-      <div class="hero__meta">
-        <span>м. Маяковская</span>
-        <span>3+ года работы</span>
-        <span>Рейтинг 4,9</span>
-      </div>
-    </header>
+  <div class="paper-noise" aria-hidden="true"></div>
 
-    <main>
-      <section class="booking" aria-labelledby="booking-heading">
-        <div class="booking__card">
-          <h2 id="booking-heading" class="booking__title">Данные для записи</h2>
-          <div class="booking__grid">
-            <div class="field field--full">
-              <label for="client-name">Ваше имя</label>
-              <input type="text" id="client-name" name="name" placeholder="Например, Анна" autocomplete="name">
+  <header class="site-header header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="На главную">
+        VETA TATTOO
+        <span>Москва • Орск</span>
+      </a>
+      <a href="#quiz" class="btn btn-primary">Рассчитать стоимость</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Елизавета · @vetatattooo</p>
+          <h1>Твоя новая тату уже ждет тебя</h1>
+          <p class="hero-lead">
+            Если ты давно хотела, но всё откладывала — возможно, сейчас самое время. Создаю изящные украшения, которые становятся частью вашей истории.
+          </p>
+          <div class="hero-actions">
+            <a href="#quiz" class="btn btn-primary">Узнать стоимость</a>
+          </div>
+          <a href="https://instagram.com/vetatattooo" class="ig-link" target="_blank" rel="noopener noreferrer">Instagram @vetatattooo →</a>
+        </div>
+        <figure class="hero-image-wrap">
+          <img src="work1.jpg" alt="Премиальная татуировка" width="800" height="1000" loading="eager">
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="mini-block">
+          <div class="section-narrow">
+            <p class="eyebrow">Для начала</p>
+            <h2>Думаешь о первой тату?</h2>
+            <p>
+              Небольшой рисунок — это мягкий вход в мир тату: процедура занимает меньше времени, заживление проходит спокойнее, а результат всё равно остаётся с вами навсегда. Я работаю аккуратно, объясняю каждый этап и создаю атмосферу, в которой легко расслабиться — даже если это ваш первый опыт.
+            </p>
+          </div>
+          <figure class="card mini-photo-card">
+            <div class="mini-photo-frame">
+              <img src="work2.jpg" alt="Мини-тату на плече" width="800" height="1000" loading="lazy">
             </div>
-            <div class="field">
-              <label for="client-date">Дата записи</label>
-              <input type="date" id="client-date" name="date">
-            </div>
-            <div class="field">
-              <label for="client-time">Желаемое время</label>
-              <input type="time" id="client-time" name="time">
-            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: rgba(255,255,255,0.45);">
+      <div class="container">
+        <p class="eyebrow">Смысл и идея</p>
+        <h2>Особенные смыслы</h2>
+        <div class="cards-grid">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🐾</div>
+            <h3>Память о друге</h3>
+            <p>
+              Отпечаток лапки, дата, символ — тонкая работа, которая бережно хранит память о питомце. Помогу подобрать размер и место так, чтобы эскиз смотрелся изящно и жил с вами каждый день.
+            </p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">✎</div>
+            <h3>Есть идея, но нет эскиза?</h3>
+            <p>
+              Расскажите образ словами — я разработаю эскиз под ваш стиль и анатомию. Вместе уточним детали, пока рисунок не станет «вашим» на все сто процентов.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container section-narrow">
+        <p class="eyebrow">Поддержка</p>
+        <h2>А если я боюсь?</h2>
+        <p>
+          Страх боли и неизвестности — нормальная часть пути. Я не тороплю: перед сеансом обсуждаем ощущения, делаем паузы, когда нужно, и держу темп, который комфортен именно вам. Моя задача — не только нанести линии, но и подарить ощущение, что вы в надёжных руках.
+        </p>
+      </div>
+    </section>
+
+    <section style="background: rgba(255,255,255,0.45);">
+      <div class="container">
+        <p class="eyebrow">Вместе</p>
+        <h2>Парные татуировки</h2>
+        <p class="section-narrow" style="margin-bottom: 0;">
+          Общий символ, дополняющие элементы или зеркальные мини-работы — создаю пары, которые выглядят цельно по отдельности и вместе. Идеально для близких, друзей или пары, которая хочет отметить связь тонко и стильно.
+        </p>
+        <div class="split">
+          <figure class="split-image">
+            <img src="work3.jpg" alt="Парные тату Солнце и Луна" width="800" height="1067" loading="lazy">
+          </figure>
+          <div class="card">
+            <h3>Как это устроено</h3>
+            <p>Один запрос — один согласованный стиль для обоих. На консультации обсуждаем смысл, размер и синхронность сеансов в Москве или Орске.</p>
+            <a href="#quiz" class="btn btn-primary" style="margin-top: 1.25rem;">Обсудить парную работу</a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="services-section" aria-labelledby="services-heading">
-        <h2 id="services-heading" class="section-title">Услуги</h2>
-
-        <div class="categories">
-          <article class="category-card accordion is-open" data-accordion>
-            <button type="button" class="accordion__trigger" aria-expanded="true">
-              <h3 class="accordion__title">Базовый уход</h3>
-              <span class="accordion__chevron" aria-hidden="true"></span>
-            </button>
-            <div class="accordion__panel">
-              <div class="accordion__panel-inner">
-                <ul class="service-list">
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s1" data-id="s1" data-name="Маникюр классический" data-price="1800">
-                    <label class="service__label" for="s1">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Маникюр классический</span>
-                        <p class="service__desc">Обработка кутикулы, форма, полировка ногтевой пластины</p>
-                      </span>
-                      <span class="service__price">1 800 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s2" data-id="s2" data-name="Покрытие гель-лак" data-price="1200">
-                    <label class="service__label" for="s2">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Покрытие гель-лак</span>
-                        <p class="service__desc">Стойкое покрытие одним оттенком, база и топ</p>
-                      </span>
-                      <span class="service__price">1 200 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s3" data-id="s3" data-name="Коррекция бровей" data-price="900">
-                    <label class="service__label" for="s3">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Коррекция бровей</span>
-                        <p class="service__desc">Архитектура формы, аккуратное оформление</p>
-                      </span>
-                      <span class="service__price">900 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s4" data-id="s4" data-name="Окрашивание бровей" data-price="700">
-                    <label class="service__label" for="s4">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Окрашивание бровей</span>
-                        <p class="service__desc">Мягкий оттенок под ваш тон кожи и волос</p>
-                      </span>
-                      <span class="service__price">700 ₽</span>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <article class="category-card accordion" data-accordion>
-            <button type="button" class="accordion__trigger" aria-expanded="false">
-              <h3 class="accordion__title">Дизайн и укрепление</h3>
-              <span class="accordion__chevron" aria-hidden="true"></span>
-            </button>
-            <div class="accordion__panel">
-              <div class="accordion__panel-inner">
-                <ul class="service-list">
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s5" data-id="s5" data-name="Укрепление ногтей" data-price="1500">
-                    <label class="service__label" for="s5">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Укрепление ногтей</span>
-                        <p class="service__desc">База для укрепления, выравнивание пластины</p>
-                      </span>
-                      <span class="service__price">1 500 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s6" data-id="s6" data-name="Фrench / minimal-дизайн" data-price="800">
-                    <label class="service__label" for="s6">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">French / minimal-дизайн</span>
-                        <p class="service__desc">Лаконичный дизайн на 2–4 ногтя</p>
-                      </span>
-                      <span class="service__price">800 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s7" data-id="s7" data-name="Авторский дизайн" data-price="1500">
-                    <label class="service__label" for="s7">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Авторский дизайн</span>
-                        <p class="service__desc">Рисунок, фольга, стразы — по согласованию</p>
-                      </span>
-                      <span class="service__price">от 1 500 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s8" data-id="s8" data-name="Ламинирование бровей" data-price="2200">
-                    <label class="service__label" for="s8">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Ламинирование бровей</span>
-                        <p class="service__desc">Фиксация формы, уход и объём</p>
-                      </span>
-                      <span class="service__price">2 200 ₽</span>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <article class="category-card accordion" data-accordion>
-            <button type="button" class="accordion__trigger" aria-expanded="false">
-              <h3 class="accordion__title">Дополнительно</h3>
-              <span class="accordion__chevron" aria-hidden="true"></span>
-            </button>
-            <div class="accordion__panel">
-              <div class="accordion__panel-inner">
-                <ul class="service-list">
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s9" data-id="s9" data-name="SPA-уход для рук" data-price="600">
-                    <label class="service__label" for="s9">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">SPA-уход для рук</span>
-                        <p class="service__desc">Скраб, маска, массаж</p>
-                      </span>
-                      <span class="service__price">600 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s10" data-id="s10" data-name="Снятие покрытия" data-price="400">
-                    <label class="service__label" for="s10">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Снятие покрытия</span>
-                        <p class="service__desc">Бережное снятие гель-лака или наращивания</p>
-                      </span>
-                      <span class="service__price">400 ₽</span>
-                    </label>
-                  </li>
-                  <li class="service" data-service>
-                    <input class="service__input" type="checkbox" id="s11" data-id="s11" data-name="Ремонт ногтя" data-price="300">
-                    <label class="service__label" for="s11">
-                      <span class="service__check" aria-hidden="true"></span>
-                      <span class="service__body">
-                        <span class="service__title">Ремонт ногтя</span>
-                        <p class="service__desc">Восстановление одного ногтя</p>
-                      </span>
-                      <span class="service__price">300 ₽</span>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
+    <section id="quiz">
+      <div class="container">
+        <div style="text-align: center; max-width: 32rem; margin: 0 auto;">
+          <p class="eyebrow">Заявка</p>
+          <h2>Рассчитать стоимость</h2>
+          <p>Ответьте на несколько вопросов — Елизавета получит заявку и свяжется с вами в Telegram.</p>
         </div>
-      </section>
-    </main>
 
-    <footer class="footer">
-      <nav class="footer__links" aria-label="Ссылки">
-        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://t.me/username_mastera" target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="#" onclick="return false;">Политика конфиденциальности</a>
-      </nav>
-      <p class="footer__address">Москва, ул. Примерная, 12 · студия по записи</p>
-    </footer>
+        <div class="quiz-wrap card">
+          <div class="quiz-progress" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="quizProgress">
+            <div class="quiz-progress-dot is-active" data-step="1"></div>
+            <div class="quiz-progress-dot" data-step="2"></div>
+            <div class="quiz-progress-dot" data-step="3"></div>
+            <div class="quiz-progress-dot" data-step="4"></div>
+          </div>
+
+          <form id="quizForm" novalidate>
+            <div class="quiz-step is-visible" data-step="1">
+              <p class="quiz-step-title">Шаг 1 из 4</p>
+              <p style="color: var(--muted); margin-bottom: 0;">Выберите город для записи</p>
+              <div class="option-grid" role="group" aria-label="Город">
+                <button type="button" class="option-btn" data-field="city" data-value="Москва">Москва</button>
+                <button type="button" class="option-btn" data-field="city" data-value="Орск">Орск</button>
+              </div>
+              <p class="field-error" id="error-step-1" role="alert"></p>
+            </div>
+
+            <div class="quiz-step" data-step="2">
+              <p class="quiz-step-title">Шаг 2 из 4</p>
+              <p style="color: var(--muted); margin-bottom: 0;">Тип проекта</p>
+              <div class="option-grid" role="group" aria-label="Тип проекта">
+                <button type="button" class="option-btn" data-field="projectType" data-value="Первая мини-тату">Первая мини-тату</button>
+                <button type="button" class="option-btn" data-field="projectType" data-value="Большой проект">Большой проект</button>
+                <button type="button" class="option-btn" data-field="projectType" data-value="Память о питомце">Память о питомце</button>
+                <button type="button" class="option-btn" data-field="projectType" data-value="Нужен эскиз">Нужен эскиз</button>
+              </div>
+              <p class="field-error" id="error-step-2" role="alert"></p>
+            </div>
+
+            <div class="quiz-step" data-step="3">
+              <p class="quiz-step-title">Шаг 3 из 4</p>
+              <label class="field-label" for="details">Идея, место на теле, размер (см)</label>
+              <textarea id="details" class="field-textarea" name="details" placeholder="Например: небольшая лилия на запястье, около 5 см…" autocomplete="off"></textarea>
+              <p class="field-error" id="error-step-3" role="alert"></p>
+            </div>
+
+            <div class="quiz-step" data-step="4">
+              <p class="quiz-step-title">Шаг 4 из 4</p>
+              <label class="field-label" for="telegram">Telegram для связи</label>
+              <input type="text" id="telegram" class="field-input" name="telegram" placeholder="@username" autocomplete="username" inputmode="text">
+              <p class="field-error" id="error-step-4" role="alert"></p>
+            </div>
+
+            <div class="quiz-nav">
+              <button type="button" class="btn btn-ghost" id="quizPrev" hidden>Назад</button>
+              <button type="button" class="btn btn-primary" id="quizNext">Далее</button>
+              <button type="submit" class="btn btn-primary" id="quizSubmit" hidden>Отправить заявку</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>VETA TATTOO · Елизавета · <a href="https://instagram.com/vetatattooo" target="_blank" rel="noopener noreferrer">@vetatattooo</a></p>
+      <p style="margin-top: 0.5rem;">Москва • Орск</p>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <h3 id="modalTitle">Готово</h3>
+      <p>Заявка успешно отправлена! Елизавета скоро свяжется с вами.</p>
+      <button type="button" class="btn btn-primary" id="modalClose" style="margin-top: 1.5rem; width: 100%;">Закрыть</button>
+    </div>
   </div>
 
-  <aside class="sticky-bar" aria-live="polite">
-    <div class="sticky-bar__inner">
-      <div class="sticky-bar__row">
-        <span class="sticky-bar__hint" id="summary-hint">Итого</span>
-        <p class="sticky-bar__total is-empty" id="total-display">Выберите услуги</p>
-      </div>
-
-      <fieldset class="messenger-switch">
-        <legend class="messenger-switch__legend">Куда отправить</legend>
-        <div class="messenger-switch__track" id="messenger-track">
-          <span class="messenger-switch__thumb" aria-hidden="true"></span>
-          <input class="messenger-switch__input" type="radio" name="messenger" id="messenger-whatsapp" value="whatsapp" checked>
-          <label class="messenger-switch__option" for="messenger-whatsapp">
-            <svg class="messenger-switch__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            WhatsApp
-          </label>
-          <input class="messenger-switch__input" type="radio" name="messenger" id="messenger-telegram" value="telegram">
-          <label class="messenger-switch__option" for="messenger-telegram">
-            <svg class="messenger-switch__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
-            Telegram
-          </label>
-        </div>
-      </fieldset>
-
-      <button type="button" class="btn-send" id="btn-send">
-        <svg class="btn-send__icon" id="btn-send-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        <span id="btn-send-label">Записаться</span>
-      </button>
-    </div>
-  </aside>
-
   <script>
-    const WHATSAPP_PHONE = "70000000000";
-    const TELEGRAM_USERNAME = "username_mastera";
+    const TELEGRAM_BOT_TOKEN = '8658321277:AAFgF-6j0rDbQ_3Ehv3DIIgEIdQZaj1wKHI';
+    const TELEGRAM_CHAT_ID = '6781845756';
 
-    const ICON_WHATSAPP = `<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>`;
+    (function () {
+      const state = {
+        city: '',
+        projectType: '',
+        details: '',
+        telegram: '',
+        step: 1,
+        totalSteps: 4
+      };
 
-    const ICON_TELEGRAM = `<path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>`;
+      const form = document.getElementById('quizForm');
+      const steps = document.querySelectorAll('.quiz-step');
+      const progressBar = document.getElementById('quizProgress');
+      const progressDots = progressBar.querySelectorAll('.quiz-progress-dot');
+      const btnPrev = document.getElementById('quizPrev');
+      const btnNext = document.getElementById('quizNext');
+      const btnSubmit = document.getElementById('quizSubmit');
+      const detailsEl = document.getElementById('details');
+      const telegramEl = document.getElementById('telegram');
+      const modal = document.getElementById('successModal');
+      const modalClose = document.getElementById('modalClose');
 
-    const formatPrice = (value) =>
-      new Intl.NumberFormat("ru-RU").format(value) + " ₽";
-
-    const formatPriceRub = (value) =>
-      new Intl.NumberFormat("ru-RU").format(value) + " руб.";
-
-    const formatDateDisplay = (isoDate) => {
-      const [year, month, day] = isoDate.split("-");
-      return `${day}.${month}.${year}`;
-    };
-
-    const serviceInputs = document.querySelectorAll(".service__input");
-    const serviceCards = document.querySelectorAll("[data-service]");
-    const totalDisplay = document.getElementById("total-display");
-    const summaryHint = document.getElementById("summary-hint");
-    const btnSend = document.getElementById("btn-send");
-    const btnSendIcon = document.getElementById("btn-send-icon");
-    const messengerTrack = document.getElementById("messenger-track");
-    const messengerInputs = document.querySelectorAll('input[name="messenger"]');
-    const clientName = document.getElementById("client-name");
-    const clientDate = document.getElementById("client-date");
-    const clientTime = document.getElementById("client-time");
-    const servicesSection = document.getElementById("services-section");
-    const accordions = document.querySelectorAll("[data-accordion]");
-
-    const bookingFields = [
-      { el: () => clientName, isEmpty: () => !clientName.value.trim() },
-      { el: () => clientDate, isEmpty: () => !clientDate.value },
-      { el: () => clientTime, isEmpty: () => !clientTime.value },
-    ];
-
-    const getSelected = () =>
-      [...serviceInputs]
-        .filter((input) => input.checked)
-        .map((input) => ({
-          id: input.dataset.id,
-          name: input.dataset.name,
-          price: Number(input.dataset.price),
-        }));
-
-    const getMessenger = () => {
-      const checked = document.querySelector('input[name="messenger"]:checked');
-      return checked ? checked.value : "whatsapp";
-    };
-
-    const setAccordionOpen = (card, open) => {
-      const trigger = card.querySelector(".accordion__trigger");
-      const panel = card.querySelector(".accordion__panel");
-      const inner = card.querySelector(".accordion__panel-inner");
-
-      card.classList.toggle("is-open", open);
-      trigger.setAttribute("aria-expanded", open ? "true" : "false");
-
-      if (open) {
-        panel.style.maxHeight = inner.scrollHeight + "px";
-      } else {
-        panel.style.maxHeight = "0px";
-      }
-    };
-
-    accordions.forEach((card) => {
-      const trigger = card.querySelector(".accordion__trigger");
-      if (card.classList.contains("is-open")) {
-        setAccordionOpen(card, true);
-      }
-      trigger.addEventListener("click", () => {
-        setAccordionOpen(card, !card.classList.contains("is-open"));
+      document.querySelectorAll('.option-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const field = btn.getAttribute('data-field');
+          const value = btn.getAttribute('data-value');
+          document.querySelectorAll('.option-btn[data-field="' + field + '"]').forEach(function (b) {
+            b.classList.remove('is-selected');
+          });
+          btn.classList.add('is-selected');
+          state[field] = value;
+          clearError(state.step);
+        });
       });
-    });
 
-    window.addEventListener("resize", () => {
-      accordions.forEach((card) => {
-        if (card.classList.contains("is-open")) {
-          setAccordionOpen(card, true);
+      function clearError(step) {
+        const el = document.getElementById('error-step-' + step);
+        if (el) el.textContent = '';
+      }
+
+      function showError(step, message) {
+        const el = document.getElementById('error-step-' + step);
+        if (el) el.textContent = message;
+      }
+
+      function validateStep(step) {
+        clearError(step);
+        if (step === 1) {
+          if (!state.city) {
+            showError(1, 'Пожалуйста, выберите город.');
+            return false;
+          }
+        }
+        if (step === 2) {
+          if (!state.projectType) {
+            showError(2, 'Выберите тип проекта.');
+            return false;
+          }
+        }
+        if (step === 3) {
+          state.details = detailsEl.value.trim();
+          if (state.details.length < 10) {
+            showError(3, 'Опишите идею подробнее (минимум 10 символов).');
+            return false;
+          }
+        }
+        if (step === 4) {
+          state.telegram = telegramEl.value.trim();
+          if (!/^@[a-zA-Z0-9_]{5,32}$/.test(state.telegram)) {
+            showError(4, 'Укажите Telegram в формате @username (5–32 символа).');
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function updateUI() {
+        steps.forEach(function (s) {
+          s.classList.toggle('is-visible', Number(s.getAttribute('data-step')) === state.step);
+        });
+        progressDots.forEach(function (dot, i) {
+          const n = i + 1;
+          dot.classList.toggle('is-active', n === state.step);
+          dot.classList.toggle('is-done', n < state.step);
+        });
+        progressBar.setAttribute('aria-valuenow', String(state.step));
+        btnPrev.hidden = state.step === 1;
+        btnNext.hidden = state.step === state.totalSteps;
+        btnSubmit.hidden = state.step !== state.totalSteps;
+      }
+
+      btnNext.addEventListener('click', function () {
+        if (!validateStep(state.step)) return;
+        if (state.step < state.totalSteps) {
+          state.step += 1;
+          updateUI();
         }
       });
-    });
 
-    const updateMessengerUI = () => {
-      const isTelegram = getMessenger() === "telegram";
-      messengerTrack.classList.toggle("is-telegram", isTelegram);
-      btnSendIcon.innerHTML = isTelegram ? ICON_TELEGRAM : ICON_WHATSAPP;
-    };
-
-    const updateUI = () => {
-      const selected = getSelected();
-      const total = selected.reduce((sum, item) => sum + item.price, 0);
-
-      serviceCards.forEach((card) => {
-        const input = card.querySelector(".service__input");
-        card.classList.toggle("is-selected", input.checked);
+      btnPrev.addEventListener('click', function () {
+        if (state.step > 1) {
+          clearError(state.step);
+          state.step -= 1;
+          updateUI();
+        }
       });
 
-      if (selected.length === 0) {
-        totalDisplay.textContent = "Выберите услуги";
-        totalDisplay.classList.add("is-empty");
-        summaryHint.style.opacity = "0.35";
-      } else {
-        totalDisplay.textContent = formatPrice(total);
-        totalDisplay.classList.remove("is-empty");
-        summaryHint.style.opacity = "0.4";
+      function buildMessage() {
+        return [
+          '🆕 Новая заявка VETA TATTOO',
+          '',
+          '📍 Город: ' + state.city,
+          '🎨 Тип: ' + state.projectType,
+          '📝 Детали:',
+          state.details,
+          '',
+          '💬 Telegram: ' + state.telegram
+        ].join('\n');
       }
-    };
 
-    serviceInputs.forEach((input) => {
-      input.addEventListener("change", updateUI);
-    });
-
-    messengerInputs.forEach((input) => {
-      input.addEventListener("change", updateMessengerUI);
-    });
-
-    const clearFieldErrors = () => {
-      bookingFields.forEach(({ el }) => el().classList.remove("is-invalid"));
-    };
-
-    const validateBookingFields = () => {
-      clearFieldErrors();
-      const invalid = bookingFields.filter(({ isEmpty }) => isEmpty());
-      invalid.forEach(({ el }) => el().classList.add("is-invalid"));
-
-      if (invalid.length > 0) {
-        invalid[0].el().scrollIntoView({ behavior: "smooth", block: "center" });
-        invalid[0].el().focus({ preventScroll: true });
-        return false;
-      }
-      return true;
-    };
-
-    bookingFields.forEach(({ el }) => {
-      const input = el();
-      input.addEventListener("input", () => input.classList.remove("is-invalid"));
-      input.addEventListener("change", () => input.classList.remove("is-invalid"));
-    });
-
-    const highlightServices = () => {
-      servicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      document.querySelectorAll(".category-card").forEach((card) => {
-        card.classList.add("is-highlight");
-      });
-      setTimeout(() => {
-        document.querySelectorAll(".category-card").forEach((card) => {
-          card.classList.remove("is-highlight");
+      async function sendToTelegram(text) {
+        const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: text
+          })
         });
-      }, 2200);
-    };
-
-    const buildBookingMessage = () => {
-      const selected = getSelected();
-      const total = selected.reduce((sum, item) => sum + item.price, 0);
-      const name = clientName.value.trim();
-      const dateStr = formatDateDisplay(clientDate.value);
-      const timeStr = clientTime.value;
-
-      const lines = [
-        "Здравствуйте! Хочу записаться в Studio Noir.",
-        "Имя: " + name,
-        "Дата: " + dateStr + ", Время: " + timeStr,
-        "Выбранные услуги:",
-        ...selected.map(
-          (item) => "- " + item.name + " (" + formatPriceRub(item.price) + ")"
-        ),
-        "Итого: " + formatPriceRub(total),
-      ];
-
-      return lines.join("\n");
-    };
-
-    const openBookingLink = () => {
-      if (!validateBookingFields()) return;
-
-      const selected = getSelected();
-      if (selected.length === 0) {
-        highlightServices();
-        return;
+        const data = await res.json().catch(function () { return {}; });
+        if (!res.ok || !data.ok) {
+          throw new Error(data.description || 'Не удалось отправить сообщение.');
+        }
       }
 
-      const text = encodeURIComponent(buildBookingMessage());
-      const messenger = getMessenger();
-      const url =
-        messenger === "telegram"
-          ? `https://t.me/${TELEGRAM_USERNAME}?text=${text}`
-          : `https://wa.me/${WHATSAPP_PHONE}?text=${text}`;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!validateStep(4)) return;
 
-      window.open(url, "_blank", "noopener,noreferrer");
-    };
+        const originalLabel = btnSubmit.textContent;
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Отправка...';
 
-    btnSend.addEventListener("click", openBookingLink);
+        try {
+          await sendToTelegram(buildMessage());
+          modal.classList.add('is-open');
+          form.reset();
+          state.city = '';
+          state.projectType = '';
+          state.details = '';
+          state.telegram = '';
+          state.step = 1;
+          document.querySelectorAll('.option-btn.is-selected').forEach(function (b) {
+            b.classList.remove('is-selected');
+          });
+          updateUI();
+        } catch (err) {
+          showError(4, err.message || 'Ошибка отправки. Попробуйте позже или напишите в Instagram.');
+        } finally {
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = originalLabel;
+        }
+      });
 
-    updateMessengerUI();
-    updateUI();
+      function closeModal() {
+        modal.classList.remove('is-open');
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+      });
+
+      updateUI();
+    })();
   </script>
 </body>
 </html>
